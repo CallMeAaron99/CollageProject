@@ -13,4 +13,4 @@
 
 ## 服务器
 
-1. 执行 src/main/java/com/collage/project/ProjectApplication.java
+1. 运行 src/main/java/com/collage/project/ProjectApplication.java
