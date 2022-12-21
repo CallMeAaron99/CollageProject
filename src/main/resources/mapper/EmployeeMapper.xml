@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.collage.project.Employee.mapper.EmployeeMapper">
+    <resultMap id="result" type="com.collage.project.Employee.entity.Employee">
+        <result property="empId" column="empId"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="birthDate" column="birthDate"/>
+        <result property="hireDate" column="hireDate"/>
+        <result property="salary" column="salary"/>
+        <result property="deptId" column="deptId"/>
+        <result property="deptName" column="deptName"/>
+    </resultMap>
+    <select id="findAll" resultMap="result">
+        select empId,name,gender,birthDate,e.deptId,d.deptName,salary,hireDate
+        from employees e join departments d on e.deptId=d.deptId
+    </select>
+    <select id="findById" resultMap="result" parameterType="int">
+        select empId,name,gender,birthDate,deptId,hireDate,salary
+        from employees
+        where empId=#{empId}
+    </select>
+    <select id="findByName" resultMap="result" parameterType="String">
+        select empId,name,gender,birthDate,e.deptId,d.deptName,salary,hireDate
+        from employees e join departments d on e.deptId=d.deptId
+        where e.name like #{name}
+    </select>
+    <select id="findByDeptId" resultMap="result" parameterType="int">
+        select empId,name,gender,birthDate,e.deptId,d.deptName,salary,hireDate
+        from employees e join departments d on e.deptId=d.deptId
+        where e.deptId=#{deptId}
+    </select>
+    <select id="findByNameAndDeptId" resultMap="result">
+        select empId,name,gender,birthDate,e.deptId,d.deptName,salary,hireDate
+        from employees e join departments d on e.deptId=d.deptId
+        where e.name like #{name} and e.deptId=#{deptId}
+    </select>
+    <insert id="save" parameterType="com.collage.project.Employee.entity.Employee">
+        insert into employees (name,gender,birthDate,deptId,salary,hireDate)
+        values (#{name},#{gender},#{birthDate},#{deptId},#{salary},#{hireDate})
+    </insert>
+    <update id="update" parameterType="com.collage.project.Employee.entity.Employee">
+        update employees
+        set name=#{name},gender=#{gender},birthDate=#{birthDate},deptId=#{deptId},salary=#{salary}
+        where empId=#{empId}
+    </update>
+    <delete id="delete" parameterType="int">
+        delete from employees
+        where empId=#{empId}
+    </delete>
+</mapper>

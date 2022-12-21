@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.collage.project.Department.mapper.DepartmentMapper">
+    <resultMap id="result" type="com.collage.project.Department.entity.Department">
+        <result property="deptId" column="deptId"/>
+        <result property="deptName" column="deptName"/>
+    </resultMap>
+    <select id="findAll" resultMap="result">
+        select deptId,deptName from departments
+    </select>
+    <select id="findById" resultMap="result" parameterType="int">
+        select deptId,deptName
+        from departments
+        where deptId=#{deptId}
+    </select>
+    <select id="findByName" resultMap="result" parameterType="String">
+        select deptId,deptName
+        from departments
+        where deptName like #{deptName}
+    </select>
+    <select id="findBySpecificName" resultMap="result" parameterType="String">
+        select deptId,deptName
+        from departments
+        where deptName=#{name}
+    </select>
+    <insert id="save" parameterType="com.collage.project.Department.entity.Department">
+        insert into departments (deptName)
+        values (#{deptName})
+    </insert>
+    <update id="update" parameterType="com.collage.project.Department.entity.Department">
+        update departments
+        set deptName=#{deptName}
+        where deptId=#{deptId}
+    </update>
+    <delete id="delete" parameterType="int">
+        delete from departments
+        where deptId=#{deptId}
+    </delete>
+</mapper>
