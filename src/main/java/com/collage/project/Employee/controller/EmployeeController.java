@@ -28,6 +28,7 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
+    // 根据查询参数获取员工
     @GetMapping
     public List<Employee> getEmployees(@RequestParam(required = false) String name, @RequestParam(required = false, defaultValue = "0") int deptId) {
         if(name!=null || deptId != 0){ // 有查询参数
@@ -45,22 +46,26 @@ public class EmployeeController {
         }
     }
 
+    // 根据员工id获取员工
     @GetMapping(path = "{id}")
     public Employee getEmployeeById(@PathVariable("id") int empId) {
         return employeeService.getEmployeeById(empId);
     }
 
+    // 添加员工
     @PostMapping
     public void addEmployee(@RequestBody Employee employee) {
         employee.setHireDate(new Date());
         employeeService.addEmployee(employee);
     }
 
+    // 更新员工
     @PutMapping(path = "{id}")
     public void updateEmployee(@RequestBody Employee employee, @PathVariable("id") int empId){
         employeeService.updateEmployee(employee);
     }
 
+    // 删除员工
     @DeleteMapping(path = "{id}")
     public void deleteEmployee(@PathVariable("id") int empId){
         employeeService.deleteEmployee(empId);

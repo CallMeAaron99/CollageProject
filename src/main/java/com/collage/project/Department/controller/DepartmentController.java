@@ -27,33 +27,38 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
+    // 根据查询参数获取部门
     @GetMapping
     public List<Department> getDepartments(@RequestParam(required = false) String deptName, @RequestParam(required = false) String name){
         if(deptName != null){
             deptName = String.format("%%%s%%", deptName); // 格式化用于 like 搜索
             return departmentService.getDepartmentsByName(deptName);
-        }else if(name != null){
+        }else if(name != null){ // 精确查询
             return departmentService.getDepartmentsBySpecificName(name);
         }else{
             return departmentService.getDepartments();
         }
     }
 
+    // 根据部门id获取部门
     @GetMapping(path = "{id}")
     public Department getDepartmentById(@PathVariable("id") int deptId) {
         return departmentService.getDepartmentById(deptId);
     }
 
+    // 添加部门
     @PostMapping
     public void addDepartment(@RequestBody Department department) {
         departmentService.addDepartment(department);
     }
 
+    // 更新部门
     @PutMapping(path = "{id}")
     public void updateDepartment(@RequestBody Department department, @PathVariable("id") int deptId){
         departmentService.updateDepartment(department);
     }
 
+    // 删除部门
     @DeleteMapping(path = "{id}")
     public void deleteDepartment(@PathVariable("id") int deptId){
         departmentService.deleteDepartment(deptId);
