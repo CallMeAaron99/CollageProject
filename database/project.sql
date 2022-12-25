@@ -1,11 +1,10 @@
+USE [master]
+GO
+
+CREATE DATABASE [EmployeeDB]
+GO
+
 USE [EmployeeDB]
-GO
-
-ALTER TABLE [dbo].[employees] DROP CONSTRAINT [FK_employees_departments]
-GO
-
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[employees]') AND type in (N'U'))
-DROP TABLE [dbo].[employees]
 GO
 
 CREATE TABLE [dbo].[employees](
@@ -23,10 +22,6 @@ CREATE TABLE [dbo].[employees](
 ) ON [PRIMARY]
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[departments]') AND type in (N'U'))
-DROP TABLE [dbo].[departments]
-GO
-
 CREATE TABLE [dbo].[departments](
 	[deptId] [int] IDENTITY(1,1) NOT NULL,
 	[deptName] [nvarchar](50) NOT NULL,
@@ -42,4 +37,15 @@ REFERENCES [dbo].[departments] ([deptId])
 GO
 
 ALTER TABLE [dbo].[employees] CHECK CONSTRAINT [FK_employees_departments]
+GO
+
+INSERT [dbo].[departments] ([deptName]) VALUES (N'C++')
+INSERT [dbo].[departments] ([deptName]) VALUES (N'Python')
+INSERT [dbo].[departments] ([deptName]) VALUES (N'Java')
+GO
+
+INSERT [dbo].[employees] ([name], [gender], [birthDate], [deptId], [salary], [hireDate]) VALUES (N'你老豆', 0, CAST(N'1999-02-02' AS Date), 1, 1234567.0000, CAST(N'2022-12-25' AS Date))
+INSERT [dbo].[employees] ([name], [gender], [birthDate], [deptId], [salary], [hireDate]) VALUES (N'你老母', 1, CAST(N'2000-02-03' AS Date), 2, 54321.0000, CAST(N'2022-12-25' AS Date))
+INSERT [dbo].[employees] ([name], [gender], [birthDate], [deptId], [salary], [hireDate]) VALUES (N'你家姐', 1, CAST(N'2016-03-03' AS Date), 1, 999999.0000, CAST(N'2022-12-25' AS Date))
+INSERT [dbo].[employees] ([name], [gender], [birthDate], [deptId], [salary], [hireDate]) VALUES (N'你细佬', 0, CAST(N'2020-03-04' AS Date), 2, 888888.0000, CAST(N'2022-12-25' AS Date))
 GO

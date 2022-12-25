@@ -1,9 +1,7 @@
 ## 数据库
 
-1. 根据 application.properties 创建一个数据库叫 EmployeeDB
-2. 数据库用户名和密码要和你的一致
-3. 执行 database/Tables.sql 创建表
-4. 表内无任何数据
+1. application.properties 中的数据库用户名和密码要和你的一致
+2. 执行 database/project.sql 创建数据库
 
 ## 前端
 
@@ -11,6 +9,6 @@
 2. 输入 npm install
 3. 安装完成后输入 npm run serve
 
-## 服务器
+## 后端
 
 1. 执行 src/main/java/com/collage/project/ProjectApplication.java
