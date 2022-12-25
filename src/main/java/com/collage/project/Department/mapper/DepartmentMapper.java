@@ -15,7 +15,9 @@ public interface DepartmentMapper {
 
     public List<Department> findByName(String deptName);
 
-    public List<Department> findBySpecificName(String name);
+    public int nameCount(String name);
+
+    public int relatedEmployeeCount(int deptId);
 
     public void save(Department department);
 

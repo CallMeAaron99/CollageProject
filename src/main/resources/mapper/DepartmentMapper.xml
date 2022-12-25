@@ -18,10 +18,15 @@
         from departments
         where deptName like #{deptName}
     </select>
-    <select id="findBySpecificName" resultMap="result" parameterType="String">
-        select deptId,deptName
+    <select id="nameCount" resultType="int" parameterType="String">
+        select count(deptId)
         from departments
         where deptName=#{name}
+    </select>
+    <select id="relatedEmployeeCount" resultType="int" parameterType="int">
+        select count(empId)
+        from employees
+        where deptId=#{deptId}
     </select>
     <insert id="save" parameterType="com.collage.project.Department.entity.Department">
         insert into departments (deptName)

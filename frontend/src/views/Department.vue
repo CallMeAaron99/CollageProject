@@ -113,12 +113,6 @@ export default {
                 this.getDepartments();
             }
         },
-        // 是否有关联员工
-        hasRelatedEmployee(id){
-            let url = new URL("api/employees", baseUrl);
-            url.searchParams.append('deptId', id);
-            return axios.get(url.href);
-        },
         // 是否有重名部门
         hasDuplicateName(name){
             let url = new URL("api/departments", baseUrl);
@@ -127,28 +121,22 @@ export default {
         },
         // 添加
         addDepartment(){
-            this.hasDuplicateName(this.department.deptName).then(res => {
-                if(res.data.length == 0){
-                    axios.post(new URL("api/departments", baseUrl), this.department);
-                }else{
-                    alert("部门'"+ this.department.deptName +"'已存在'");
-                }
+            axios.post(new URL("api/departments", baseUrl), this.department).catch(error => {
+                alert("部门'"+ this.department.deptName +"'已存在'");
             });
         },
         // 更新
         updateDepartment(){
-            this.hasDuplicateName(this.department.deptName).then(res => {
-                if(res.data.length == 0){
-                    axios.put(new URL("api/departments/" + this.department.deptId, baseUrl), this.department);
-                }else{
-                    alert("部门'"+ this.department.deptName +"'已存在'");
-                }
+            axios.put(new URL("api/departments/" + this.department.deptId, baseUrl), this.department).catch(error => {
+                alert("部门'"+ this.department.deptName +"'已存在'");
             });
         },
         // 删除
-        deleteEmployee(item){
+        deleteEmployee(item){        
             if(confirm('确定删除部门"' + item.deptName + '"?')){
-                axios.delete(new URL("api/departments/" + item.deptId, baseUrl)).then(res=> { this.getDepartments() });
+                axios.delete(new URL("api/departments/" + item.deptId, baseUrl)).then(res=> { this.getDepartments() }).catch(error => {
+                    alert("部门'"+ item.deptName +"'还有关联员工，无法删除'");
+                });
             }
         },
         // 新增按钮事件

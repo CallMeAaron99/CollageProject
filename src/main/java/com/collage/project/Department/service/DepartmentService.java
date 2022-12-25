@@ -23,14 +23,19 @@ public class DepartmentService {
         return departmentMapper.findAll();
     }
 
-    // 根据名称获取部门(模糊查询)
+    // 根据名称获取部门
     public List<Department> getDepartmentsByName(String deptName){
         return departmentMapper.findByName(deptName);
     }
 
-    // 根据部门全称获取部门(精确查询)
-    public List<Department> getDepartmentsBySpecificName(String name){
-        return departmentMapper.findBySpecificName(name);
+    // 根据部门名称获取数量
+    public int getDepartmentsCountByName(String name){
+        return departmentMapper.nameCount(name);
+    }
+
+    // 根据部门id获取关联员工数量
+    public int getRelatedEmployeesCountById(int deptId){
+        return departmentMapper.relatedEmployeeCount(deptId);
     }
 
     // 根据部门id获取部门
